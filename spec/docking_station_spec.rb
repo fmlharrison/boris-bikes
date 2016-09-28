@@ -1,4 +1,5 @@
 require 'docking_station'
+require 'bike'
 
 describe DockingStation do
   before do
@@ -7,10 +8,16 @@ describe DockingStation do
     it "Should respond to release bike" do
       expect(@station).to respond_to(:release_bike)
     end
-    it "Should get a working bike" do
+
+    it "should raise and error when there are no bikes" do
+      expect{@station.release_bike}.to raise_error("No bikes available")
+    end
+
+   it "Should get a working bike" do
       bike = @station.release_bike
       expect(bike.working?).to be true
     end
+
     it { is_expected.to respond_to(:dock).with(1).argument }
 
     it { is_expected.to respond_to(:bike) }
